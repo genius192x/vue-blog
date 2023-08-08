@@ -2,7 +2,7 @@
 	<div class="post">
 		<div>
 			<div class="post__title"><strong>Название:</strong>{{ post.title }}</div>
-			<div class="post__description"><strong>Описание:</strong>{{ post.description }}</div>
+			<div class="post__body"><strong>Описание:</strong>{{ post.body }}</div>
 		</div>
 		<div class="post__buttons">
 			<my-button
@@ -31,7 +31,7 @@ import MyButton from '@/components/UI/MyButton'
 		padding: 20px;
 		border: 2px solid teal;
 		border-radius: 4px;
-		max-width: 300px;
+		// max-width: 300px;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;

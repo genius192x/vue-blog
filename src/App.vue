@@ -1,51 +1,57 @@
 <template>
 	<div class="app">
 		<h2>Page w posts</h2>
-		<my-button 
-			@click="showDialog">
-			Create post
-		</my-button>
+		<div class="app__buttons">
+			<my-button 
+				@click="showDialog">
+				Create post
+			</my-button>
+			<my-select 
+			v-model="selectedSort"
+			:options="sortOptions"
+			></my-select>
+		</div>
+		
 		<my-dialog v-model:show="dialogVisible">
 			<PostForm
 				@create ="createPost"
 			/>
 		</my-dialog>
 		<PostList 
-			:posts="posts"
+			:posts="sortedPosts"
 			@remove="removePost"
+			v-if="!isPostLoading"
 		/>
-		
+		<div v-else>Идет загрузка</div>
 	</div>
 </template>
 
 
 <script>
+import axios from 'axios';
 import PostForm from './components/PostForm.vue'
 import PostList from './components/PostList.vue'
+
 export default {
 	components:{
 		PostForm, PostList
 	},
 	data(){
 		return{
-			posts:[
+			posts:[],
+			dialogVisible: false,
+			isPostLoading: true,
+			selectedSort: '',
+			sortOptions:[
 				{
-					id:1, 
-					title: "title1", 
-					description:'description'
+					value: 'title',
+					name: 'По заголовку'
 				},
 				{
-					id:2, 
-					title: "title2", 
-					description:'description'
+					value: 'body',
+					name: 'По описанию'
 				},
-				{
-					id:3, 
-					title: "title3", 
-					description:'description'
-				},
-			],
-			dialogVisible: false
+			]
 		}
 	},
 	methods:{
@@ -58,7 +64,31 @@ export default {
 		},
 		showDialog(){
 			this.dialogVisible = true
+		},
+		async fetchPost(){
+			try{
+				setTimeout( async()=>{
+					const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+					this.posts = response.data;
+					this.isPostLoading = false;
+				}, 1000)
+				
+			} catch (e){
+				alert('ошибка')
+			}
 		}
+	},
+	mounted(){
+		this.fetchPost();
+	},
+	computed: {
+		sortedPosts(){
+			return[...this.posts].sort((post1,post2)=>{return post1[this.selectedSort]?.localeCompare(post2[this.selectedSort])
+			})
+		}
+	},
+	watch:{
+
 	}
 }
 
