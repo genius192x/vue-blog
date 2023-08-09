@@ -2,13 +2,13 @@
 <form @submit.prevent>
     <h3>Create post</h3>
     <my-input 
-		v-model="post.title" 
+		v-model.trim="post.title" 
 		class="input__create"
 		type="text" 
 		placeholder="Название">
 	</my-input>
     <my-input
-		v-model="post.description" 
+		v-model.trim="post.body" 
 		class="input__create" 
 		type="text" 
 		placeholder="Описание">
@@ -43,7 +43,6 @@ export default {
             this.post = {
                 title: '',
                 description: ''
-
             }
         }
     }
