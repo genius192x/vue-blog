@@ -60,8 +60,8 @@ export default {
 			selectedSort: '',
 			searchQuery: '',
 			page: 1,
-			limit: 10,
-			totalPage: 10,
+			limit: 15,
+			totalPage: 8,
 			sortOptions:[
 				{
 					value: 'title',

@@ -18,6 +18,10 @@ export default {
 
 <style lang="scss">
 .input {
+	height: 30px;
+	@media (max-width: 768px){
+		width: 100%;
+	}
     &__create {
         border: 1px solid teal;
         padding: 10px;

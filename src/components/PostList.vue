@@ -18,7 +18,7 @@
 
 <script>
 import PostItem from './PostItem.vue';
-export default{
+export default {
 	components: {PostItem},
 	props: {
 		posts: {
